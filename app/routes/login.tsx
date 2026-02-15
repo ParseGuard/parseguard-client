@@ -89,6 +89,7 @@ export default function Login({ actionData }: Route.ComponentProps) {
         email: formData.email,
         password: formData.password,
       });
+      console.log("NAVIFATIINBG")
       
       // Navigate without page reload
       navigate("/dashboard");

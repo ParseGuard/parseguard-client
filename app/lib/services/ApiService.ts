@@ -1,4 +1,5 @@
-import { apiClient, setToken, clearToken } from '../axios';
+import { apiClient } from '../axios';
+import { setAuthToken, removeAuthToken } from '../auth/cookie';
 import { useAuthStore } from '../store/authStore';
 import type { 
   AuthResponse, 
@@ -49,7 +50,7 @@ class ApiService {
       const { token, user } = response.data;
       
       // Store token and update auth state
-      setToken(token);
+      setAuthToken(token);
       useAuthStore.getState().setAuth(user, token);
       
       return response.data;
@@ -71,7 +72,7 @@ class ApiService {
       const { token, user } = response.data;
       
       // Store token and update auth state
-      setToken(token);
+      setAuthToken(token);
       useAuthStore.getState().setAuth(user, token);
       
       return response.data;
@@ -84,7 +85,7 @@ class ApiService {
    * Logout user
    */
   async logout(): Promise<void> {
-    clearToken();
+    removeAuthToken();
     useAuthStore.getState().clearAuth();
   }
 
@@ -98,7 +99,7 @@ class ApiService {
       const response = await apiClient.post<AuthResponse>('/auth/refresh');
       const { token, user } = response.data;
       
-      setToken(token);
+      setAuthToken(token);
       useAuthStore.getState().setAuth(user, token);
       
       return response.data;

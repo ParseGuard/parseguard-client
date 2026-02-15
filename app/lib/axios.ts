@@ -1,5 +1,6 @@
 import axios from 'axios';
 import type { AxiosInstance, AxiosError } from 'axios';
+import { getAuthToken, removeAuthToken } from './auth/cookie';
 
 /**
  * API client configuration
@@ -33,13 +34,17 @@ export const apiClient: AxiosInstance = axios.create({
  */
 apiClient.interceptors.request.use(
   (config) => {
-    // Get fresh token from localStorage on every request
-    const token = typeof window !== 'undefined' 
-      ? localStorage.getItem('auth-token')
-      : null;
+    // Get fresh token from cookie on every request
+    const token = getAuthToken();
+    
+    console.log('🔄 [Interceptor] Request to:', config.url);
+    console.log('🔑 [Interceptor] Token found:', token ? 'Yes (starts with ' + token.substring(0, 10) + '...)' : 'No');
     
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
+      console.log('✅ [Interceptor] Attached Authorization header');
+    } else {
+      console.warn('⚠️ [Interceptor] No token attached to request');
     }
     
     return config;
@@ -54,7 +59,7 @@ apiClient.interceptors.response.use(
   (response: any) => response,
   (error: AxiosError<ApiErrorResponse>) => {
     if (error.response?.status === 401) {
-      clearToken();
+      removeAuthToken();
       if (typeof window !== 'undefined') {
         window.location.href = '/login';
       }
@@ -64,34 +69,8 @@ apiClient.interceptors.response.use(
 );
 
 /**
- * Get stored JWT token
- */
-export function getToken(): string | null {
-  if (typeof window === 'undefined') return null;
-  return localStorage.getItem('auth_token');
-}
-
-/**
- * Store JWT token
- */
-export function setToken(token: string): void {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('auth_token', token);
-  }
-}
-
-/**
- * Clear stored JWT token
- */
-export function clearToken(): void {
-  if (typeof window !== 'undefined') {
-    localStorage.removeItem('auth_token');
-  }
-}
-
-/**
  * Check if user is authenticated
  */
 export function isAuthenticated(): boolean {
-  return getToken() !== null;
+  return !!getAuthToken();
 }

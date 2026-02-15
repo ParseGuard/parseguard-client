@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import type { User } from '~/types/api';
 
 /**
@@ -80,7 +80,29 @@ export const useAuthStore = create<AuthStore>()(
       },
     }),
     {
-      name: 'auth-storage',
-    }
-  )
+    name: 'auth-storage',
+    storage: createJSONStorage(() => ({
+      getItem: (name: string) => {
+        if (typeof window === 'undefined') return null;
+        return localStorage.getItem(name);
+      },
+      setItem: (name: string, value: string) => {
+        if (typeof window !== 'undefined') {
+          localStorage.setItem(name, value);
+          // Also store token separately for axios interceptor
+          const state = JSON.parse(value);
+          if (state?.state?.token) {
+            localStorage.setItem('auth_token', state.state.token);
+          }
+        }
+      },
+      removeItem: (name: string) => {
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem(name);
+          localStorage.removeItem('auth_token');
+        }
+      },
+    })),
+  }
+)
 );

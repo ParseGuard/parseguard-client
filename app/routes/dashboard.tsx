@@ -7,17 +7,27 @@ import type { DashboardStats, ActivityItem } from "~/types/api";
 /**
  * Dashboard loader - Fetch data on server
  */
-export async function loader({}: Route.LoaderArgs): Promise<{
+/**
+ * Dashboard clientLoader - Fetch data on client
+ */
+export async function clientLoader({}: Route.ClientLoaderArgs): Promise<{
   stats: DashboardStats;
   activity: ActivityItem[];
 }> {
-  const [stats, activity] = await Promise.all([
-    apiService.getDashboardStats(),
-    apiService.getActivity(10),
-  ]);
-
-  return { stats, activity };
+  try {
+    const [stats, activity] = await Promise.all([
+      apiService.getDashboardStats(),
+      apiService.getActivity(10),
+    ]);
+    return { stats, activity };
+  } catch (error) {
+    // If auth fails, the interceptor might redirect, or we can handle it here
+    throw error;
+  }
 }
+
+// Ensure clientLoader runs for initial page load too if needed (SPA mode behavior)
+clientLoader.hydrate = true;
 
 /**
  * Dashboard page component
