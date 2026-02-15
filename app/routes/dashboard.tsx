@@ -15,13 +15,17 @@ import { parseAuthTokenFromCookie } from "~/lib/auth/cookie";
  */
 export async function loader({ request }: Route.LoaderArgs) {
   const cookieHeader = request.headers.get("Cookie");
+  console.log("🍪 [Dashboard Loader] Cookie Header:", cookieHeader);
   const token = parseAuthTokenFromCookie(cookieHeader);
+  console.log("🔑 [Dashboard Loader] Parsed Token:", token ? "Yes" : "No");
   
   if (!token) {
+    console.log("❌ [Dashboard Loader] No token, redirecting");
     return redirect("/login");
   }
 
   const headers = { Authorization: `Bearer ${token}` };
+  console.log("📡 [Dashboard Loader] Making API request with headers:", headers);
 
   try {
     const [stats, activity] = await Promise.all([

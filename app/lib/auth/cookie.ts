@@ -22,6 +22,9 @@ export const setAuthToken = (token: string) => {
  * @returns JWT token or undefined
  */
 export const getAuthToken = (): string | undefined => {
+  if (typeof window === 'undefined') {
+    return undefined;
+  }
   return Cookies.get(AUTH_TOKEN_KEY);
 };
 

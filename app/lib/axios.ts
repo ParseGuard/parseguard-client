@@ -40,9 +40,14 @@ apiClient.interceptors.request.use(
     console.log('🔄 [Interceptor] Request to:', config.url);
     console.log('🔑 [Interceptor] Token found:', token ? 'Yes (starts with ' + token.substring(0, 10) + '...)' : 'No');
     
+    if (config.headers && config.headers.Authorization) {
+      console.log('✅ [Interceptor] Using existing Authorization header');
+      return config;
+    }
+
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
-      console.log('✅ [Interceptor] Attached Authorization header');
+      console.log('✅ [Interceptor] Attached Authorization header from cookie');
     } else {
       console.warn('⚠️ [Interceptor] No token attached to request');
     }
