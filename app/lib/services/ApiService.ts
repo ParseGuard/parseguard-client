@@ -114,12 +114,14 @@ class ApiService {
   /**
    * Get dashboard statistics
    * 
+   * @param headers - Optional headers for SSR
    * @returns Dashboard stats
    * @throws Error if request fails
    */
-  async getDashboardStats(): Promise<DashboardStats> {
+  async getDashboardStats(headers?: Record<string, string>): Promise<DashboardStats> {
     try {
-      const response = await apiClient.get<DashboardStats>('/dashboard/stats');
+      const config = headers ? { headers } : {};
+      const response = await apiClient.get<DashboardStats>('/dashboard/stats', config);
       return response.data;
     } catch (error) {
       throw new Error('Failed to load dashboard statistics.');
@@ -130,14 +132,17 @@ class ApiService {
    * Get recent activity
    * 
    * @param limit - Number of items to fetch
+   * @param headers - Optional headers for SSR
    * @returns Array of activity items
    * @throws Error if request fails
    */
-  async getActivity(limit = 10): Promise<ActivityItem[]> {
+  async getActivity(limit = 10, headers?: Record<string, string>): Promise<ActivityItem[]> {
     try {
-      const response = await apiClient.get<ActivityItem[]>('/dashboard/activity', {
+      const config = {
         params: { limit },
-      });
+        ...(headers ? { headers } : {})
+      };
+      const response = await apiClient.get<ActivityItem[]>('/dashboard/activity', config);
       return response.data;
     } catch (error) {
       throw new Error('Failed to load activity.');
@@ -149,12 +154,14 @@ class ApiService {
   /**
    * Get all compliance items
    * 
+   * @param headers - Optional headers for SSR
    * @returns Array of compliance items
    * @throws Error if request fails
    */
-  async getComplianceItems(): Promise<ComplianceItem[]> {
+  async getComplianceItems(headers?: Record<string, string>): Promise<ComplianceItem[]> {
     try {
-      const response = await apiClient.get<ComplianceItem[]>('/compliance');
+      const config = headers ? { headers } : {};
+      const response = await apiClient.get<ComplianceItem[]>('/compliance', config);
       return response.data;
     } catch (error) {
       throw new Error('Failed to load compliance items.');
@@ -165,12 +172,14 @@ class ApiService {
    * Get single compliance item
    * 
    * @param id - Compliance item ID
+   * @param headers - Optional headers for SSR
    * @returns Compliance item
    * @throws Error if request fails
    */
-  async getComplianceItem(id: string): Promise<ComplianceItem> {
+  async getComplianceItem(id: string, headers?: Record<string, string>): Promise<ComplianceItem> {
     try {
-      const response = await apiClient.get<ComplianceItem>(`/compliance/${id}`);
+      const config = headers ? { headers } : {};
+      const response = await apiClient.get<ComplianceItem>(`/compliance/${id}`, config);
       return response.data;
     } catch (error) {
       throw new Error('Failed to load compliance item.');

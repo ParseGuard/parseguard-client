@@ -7,10 +7,16 @@ import { useAuthStore } from "~/lib/store/authStore";
 /**
  * Landing page loader - redirect if already authenticated
  */
-export async function loader({}: Route.LoaderArgs) {
-  const { isAuthenticated } = useAuthStore.getState();
+import { parseAuthTokenFromCookie } from "~/lib/auth/cookie";
+
+/**
+ * Landing page loader - redirect if already authenticated
+ */
+export async function loader({ request }: Route.LoaderArgs) {
+  const cookieHeader = request.headers.get("Cookie");
+  const token = parseAuthTokenFromCookie(cookieHeader);
   
-  if (isAuthenticated) {
+  if (token) {
     return redirect("/dashboard");
   }
   

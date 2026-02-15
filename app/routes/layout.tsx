@@ -1,13 +1,16 @@
 import { redirect, Outlet } from "react-router";
 import type { Route } from "./+types/layout";
 import { useTranslation } from "react-i18next";
-import { isAuthenticated } from "~/lib/axios";
+import { parseAuthTokenFromCookie } from "~/lib/auth/cookie";
 
 /**
  * Layout loader - Check authentication
  */
 export async function loader({ request }: Route.LoaderArgs) {
-  if (!isAuthenticated()) {
+  const cookieHeader = request.headers.get("Cookie");
+  const token = parseAuthTokenFromCookie(cookieHeader);
+
+  if (!token) {
     return redirect("/login");
   }
   return null;

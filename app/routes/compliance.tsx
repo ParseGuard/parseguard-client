@@ -7,8 +7,22 @@ import type { ComplianceItem } from "~/types/api";
 /**
  * Compliance loader - Fetch all items
  */
-export async function loader({}: Route.LoaderArgs): Promise<ComplianceItem[]> {
-  return await apiService.getComplianceItems();
+import { redirect } from "react-router";
+import { parseAuthTokenFromCookie } from "~/lib/auth/cookie";
+
+/**
+ * Compliance loader - Fetch all items
+ */
+export async function loader({ request }: Route.LoaderArgs): Promise<ComplianceItem[]> {
+  const cookieHeader = request.headers.get("Cookie");
+  const token = parseAuthTokenFromCookie(cookieHeader);
+
+  if (!token) {
+    throw redirect("/login");
+  }
+
+  const headers = { Authorization: `Bearer ${token}` };
+  return await apiService.getComplianceItems(headers);
 }
 
 /**

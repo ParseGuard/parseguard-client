@@ -7,27 +7,33 @@ import type { DashboardStats, ActivityItem } from "~/types/api";
 /**
  * Dashboard loader - Fetch data on server
  */
+import { redirect } from "react-router";
+import { parseAuthTokenFromCookie } from "~/lib/auth/cookie";
+
 /**
- * Dashboard clientLoader - Fetch data on client
+ * Dashboard loader - Fetch data on server
  */
-export async function clientLoader({}: Route.ClientLoaderArgs): Promise<{
-  stats: DashboardStats;
-  activity: ActivityItem[];
-}> {
+export async function loader({ request }: Route.LoaderArgs) {
+  const cookieHeader = request.headers.get("Cookie");
+  const token = parseAuthTokenFromCookie(cookieHeader);
+  
+  if (!token) {
+    return redirect("/login");
+  }
+
+  const headers = { Authorization: `Bearer ${token}` };
+
   try {
     const [stats, activity] = await Promise.all([
-      apiService.getDashboardStats(),
-      apiService.getActivity(10),
+      apiService.getDashboardStats(headers),
+      apiService.getActivity(10, headers),
     ]);
     return { stats, activity };
   } catch (error) {
-    // If auth fails, the interceptor might redirect, or we can handle it here
-    throw error;
+    // If auth fails, redirect to login
+    return redirect("/login");
   }
 }
-
-// Ensure clientLoader runs for initial page load too if needed (SPA mode behavior)
-clientLoader.hydrate = true;
 
 /**
  * Dashboard page component
