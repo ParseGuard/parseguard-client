@@ -23,12 +23,12 @@ export type LoginCredentials = {
 }
 
 /**
- * Registration data type
+ * User registration data type
  */
 export type RegisterData = {
   email: string
   password: string
-  name?: string
+  full_name: string
 }
 
 /**

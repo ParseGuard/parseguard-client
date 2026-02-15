@@ -28,17 +28,23 @@ export const apiClient: AxiosInstance = axios.create({
 });
 
 /**
- * Request interceptor - Add JWT token
+ * Axios request interceptor
+ * Adds auth token to every request if available
  */
 apiClient.interceptors.request.use(
-  (config: any) => {
-    const token = getToken();
+  (config) => {
+    // Get fresh token from localStorage on every request
+    const token = typeof window !== 'undefined' 
+      ? localStorage.getItem('auth-token')
+      : null;
+    
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    
     return config;
   },
-  (error: any) => Promise.reject(error)
+  (error: unknown) => Promise.reject(error)
 );
 
 /**
