@@ -1,14 +1,14 @@
 import type { Route } from "./+types/compliance";
 import { useLoaderData } from "react-router";
 import { useTranslation } from "react-i18next";
-import { complianceApi } from "~/lib/api";
+import { apiService } from "~/lib/services/ApiService";
 import type { ComplianceItem } from "~/types/api";
 
 /**
  * Compliance loader - Fetch all items
  */
 export async function loader({}: Route.LoaderArgs): Promise<ComplianceItem[]> {
-  return await complianceApi.list();
+  return await apiService.getComplianceItems();
 }
 
 /**

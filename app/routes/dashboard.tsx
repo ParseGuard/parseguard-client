@@ -1,7 +1,7 @@
 import type { Route } from "./+types/dashboard";
 import { useLoaderData } from "react-router";
 import { useTranslation } from "react-i18next";
-import { dashboardApi } from "~/lib/api";
+import { apiService } from "~/lib/services/ApiService";
 import type { DashboardStats, ActivityItem } from "~/types/api";
 
 /**
@@ -12,8 +12,8 @@ export async function loader({}: Route.LoaderArgs): Promise<{
   activity: ActivityItem[];
 }> {
   const [stats, activity] = await Promise.all([
-    dashboardApi.getStats(),
-    dashboardApi.getActivity(10),
+    apiService.getDashboardStats(),
+    apiService.getActivity(10),
   ]);
 
   return { stats, activity };
