@@ -46,12 +46,20 @@ class ApiService {
    */
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
     try {
-      const response = await apiClient.post<AuthResponse>('/auth/login', credentials);
-      const { token, user } = response.data;
+      const response = await apiClient.post<AuthResponse>('/auth/login', credentials, {
+        params: { return_token: true }
+      });
+      const { access_token, user } = response.data;
       
-      // Store token and update auth state
-      setAuthToken(token);
-      useAuthStore.getState().setAuth(user, token);
+      const token = access_token;
+      
+      if (token) {
+        // Store token and update auth state
+        setAuthToken(token);
+        useAuthStore.getState().setAuth(user, token);
+      } else {
+        throw new Error('Login succeeded but no token returned');
+      }
       
       return response.data;
     } catch (error) {
@@ -68,12 +76,18 @@ class ApiService {
    */
   async register(data: RegisterData): Promise<AuthResponse> {
     try {
-      const response = await apiClient.post<AuthResponse>('/auth/register', data);
-      const { token, user } = response.data;
+      const response = await apiClient.post<AuthResponse>('/auth/register', data, {
+        params: { return_token: true }
+      });
+      const { access_token, user } = response.data;
       
-      // Store token and update auth state
-      setAuthToken(token);
-      useAuthStore.getState().setAuth(user, token);
+      const token = access_token;
+
+      if (token) {
+        // Store token and update auth state
+        setAuthToken(token);
+        useAuthStore.getState().setAuth(user, token);
+      }
       
       return response.data;
     } catch (error) {
@@ -97,10 +111,14 @@ class ApiService {
   async refresh(): Promise<AuthResponse> {
     try {
       const response = await apiClient.post<AuthResponse>('/auth/refresh');
-      const { token, user } = response.data;
+      const { access_token, user } = response.data;
       
-      setAuthToken(token);
-      useAuthStore.getState().setAuth(user, token);
+      const token = access_token;
+
+      if (token) {
+        setAuthToken(token);
+        useAuthStore.getState().setAuth(user, token);
+      }
       
       return response.data;
     } catch (error) {

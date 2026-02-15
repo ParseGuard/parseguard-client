@@ -35,7 +35,7 @@ export type RegisterData = {
  * Auth response type
  */
 export type AuthResponse = {
-  token: string
+  access_token?: string
   user: User
 }
 

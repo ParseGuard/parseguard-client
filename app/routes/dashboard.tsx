@@ -35,7 +35,7 @@ export async function loader({ request }: Route.LoaderArgs) {
     return { stats, activity };
   } catch (error) {
     // If auth fails, redirect to login
-    return redirect("/login");
+    // return redirect("/login");
   }
 }
 
