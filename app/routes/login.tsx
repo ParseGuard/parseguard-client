@@ -1,4 +1,4 @@
-import { redirect } from "react-router";
+import { redirect, useNavigate } from "react-router";
 import { Link } from "react-router";
 import type { Route } from "./+types/login";
 import { useState } from "react";
@@ -34,6 +34,7 @@ export async function action({ request }: Route.ActionArgs) {
 export default function Login({ actionData }: Route.ComponentProps) {
   const { t } = useTranslation();
   const { login, isLoading } = useAuth();
+  const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
     email: "",
@@ -86,8 +87,8 @@ export default function Login({ actionData }: Route.ComponentProps) {
         password: formData.password,
       });
       
-      // Redirect handled by auth hook
-      window.location.href = "/dashboard";
+      // Navigate without page reload
+      navigate("/dashboard");
     } catch (error) {
       setErrors(prev => ({
         ...prev,

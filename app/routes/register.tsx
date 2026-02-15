@@ -1,4 +1,4 @@
-import { redirect } from "react-router";
+import { redirect, useNavigate } from "react-router";
 import { Link } from "react-router";
 import type { Route } from "./+types/register";
 import { useState } from "react";
@@ -35,6 +35,7 @@ export async function action({ request }: Route.ActionArgs) {
 export default function Register({ actionData }: Route.ComponentProps) {
   const { t } = useTranslation();
   const { register, isLoading } = useAuth();
+  const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
     name: "",
@@ -118,8 +119,8 @@ export default function Register({ actionData }: Route.ComponentProps) {
         name: formData.name,
       });
       
-      // Redirect handled by auth hook
-      window.location.href = "/dashboard";
+      // Navigate without page reload
+      navigate("/dashboard");
     } catch (error) {
       setErrors(prev => ({
         ...prev,
