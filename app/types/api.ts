@@ -48,7 +48,7 @@ export type ComplianceItem = {
   title: string
   description?: string
   status: string
-  priority: string
+  risk_level: string
   dueDate?: string
   createdAt: string
   updatedAt: string
@@ -61,7 +61,7 @@ export type CreateComplianceDto = {
   title: string
   description?: string
   status?: string
-  priority?: string
+  risk_level?: string
   dueDate?: string
 }
 

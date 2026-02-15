@@ -66,6 +66,26 @@ export default function DocumentAnalyzer() {
 
       {analysis && (
         <div className="mt-6 space-y-6">
+          {/* Actions */}
+          <div className="flex flex-wrap gap-4 justify-end border-b border-gray-200 dark:border-gray-700 pb-4">
+            <button
+              onClick={async () => {
+                try {
+                  await apiService.createDocumentFromText(
+                    `AI Analysis - ${new Date().toLocaleString()}`,
+                    `Original Text:\n${text}\n\nSummary:\n${analysis.summary}\n\nRisks:\n${analysis.risk_indicators.join('\n')}`
+                  );
+                  alert(t('ai.saveSuccess') || 'Saved successfully');
+                } catch (e) {
+                  alert(t('ai.saveError') || 'Failed to save');
+                }
+              }}
+              className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 dark:hover:bg-gray-600"
+            >
+              💾 {t('ai.saveAsDocument') || 'Save as Document'}
+            </button>
+          </div>
+
           {/* Summary */}
           <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
@@ -99,6 +119,51 @@ export default function DocumentAnalyzer() {
               </ul>
             </div>
           </div>
+
+          {/* Suggested Items */}
+          {analysis.suggested_items.length > 0 && (
+            <div>
+              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+                {t('ai.suggestedItems') || 'Suggested Actions'}
+              </h3>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {analysis.suggested_items.map((item, idx) => (
+                  <div key={idx} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-white dark:bg-gray-800">
+                    <div className="flex justify-between items-start mb-2">
+                      <h4 className="font-medium text-gray-900 dark:text-white">{item.title}</h4>
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                        item.risk_level === 'high' ? 'bg-red-100 text-red-800' :
+                        item.risk_level === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                        'bg-green-100 text-green-800'
+                      }`}>
+                        {t(`compliance.risks.${item.risk_level}`) || item.risk_level}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{item.description}</p>
+                    <button
+                      onClick={async () => {
+                        try {
+                          await apiService.createComplianceItem({
+                            title: item.title,
+                            description: item.description,
+                            risk_level: item.risk_level,
+                            status: 'pending',
+                            dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()
+                          });
+                          alert(t('ai.saveSuccess') || 'Saved successfully');
+                        } catch (e) {
+                          alert(t('ai.saveError') || 'Failed to save');
+                        }
+                      }}
+                      className="text-sm text-blue-600 hover:text-blue-500 dark:text-blue-400 font-medium"
+                    >
+                      + {t('ai.saveComplianceItem') || 'Save Item'}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
           
           {/* Confidence Score */}
           <div className="flex items-center justify-end text-sm text-gray-500 dark:text-gray-400">

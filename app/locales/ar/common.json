@@ -7,17 +7,29 @@
   "auth": {
     "login": "تسجيل الدخول",
     "logout": "تسجيل الخروج",
+    "register": "التسجيل",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "loginButton": "دخول",
+    "registerButton": "تسجيل",
     "noAccount": "ليس لديك حساب؟",
     "haveAccount": "لديك حساب بالفعل؟"
   },
   "ai": {
     "analyzing": "جاري التحليل...",
     "documentAnalyzer": "محلل المستندات الذكي",
-    "register": "التسجيل",
-    "email": "البريد الإلكتروني",
-    "password": "كلمة المرور",
-    "loginButton": "دخول",
-    "haveAccount": "لديك حساب بالفعل؟"
+    "pasteText": "الصق نص المستند",
+    "placeholder": "أدخل النص للتحليل...",
+    "analyzeButton": "تحليل المستند",
+    "analyzeError": "فشل في تحليل المستند",
+    "summary": "الملخص التنفيذي",
+    "topics": "مواضيع الامتثال",
+    "risks": "مؤشرات المخاطر",
+    "suggestedItems": "إجراءات مقترحة",
+    "saveAsDocument": "حفظ كمستند",
+    "saveComplianceItem": "حفظ العنصر",
+    "saveSuccess": "تم الحفظ بنجاح",
+    "saveError": "فشل الحفظ"
   },
   "dashboard": {
     "title": "لوحة التحكم",
@@ -26,13 +38,7 @@
     "totalCompliance": "إجمالي الامتثال",
     "totalDocuments": "إجمالي المستندات",
     "pending": "قيد الانتظار",
-    "highRisk": "مخاطر عالية",
-    "riskLevel": "مستوى المخاطرة",
-    "suggestedItems": "إجراءات مقترحة",
-    "saveAsDocument": "حفظ كمستند",
-    "saveComplianceItem": "حفظ العنصر",
-    "saveSuccess": "تم الحفظ بنجاح",
-    "saveError": "فشل الحفظ"
+    "highRisk": "مخاطر عالية"
   },
   "compliance": {
     "title": "الامتثال",
@@ -42,7 +48,19 @@
     "delete": "حذف",
     "status": "الحالة",
     "priority": "الأولوية",
-    "dueDate": "تاريخ الاستحقاق"
+    "dueDate": "تاريخ الاستحقاق",
+    "statuses": {
+      "pending": "قيد الانتظار",
+      "in_progress": "قيد التنفيذ",
+      "completed": "مكتمل",
+      "expired": "منتهي"
+    },
+    "risks": {
+      "low": "منخفض",
+      "medium": "متوسط",
+      "high": "عالي",
+      "critical": "حرج"
+    }
   },
   "nav": {
     "home": "الرئيسية",

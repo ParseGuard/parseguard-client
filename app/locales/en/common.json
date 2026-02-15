@@ -5,16 +5,31 @@
   "error": "An error occurred",
   "success": "Success",
   "auth": {
-    "login": "Login"
-  },
-  "ai": {
-    "analyzing": "Analyzing...",
-    "documentAnalyzer": "AI Document Analyzer",
+    "login": "Login",
+    "logout": "Logout",
     "register": "Register",
     "email": "Email",
     "password": "Password",
     "loginButton": "Sign In",
+    "registerButton": "Sign Up",
+    "noAccount": "Don't have an account?",
     "haveAccount": "Already have an account?"
+  },
+  "ai": {
+    "analyzing": "Analyzing...",
+    "documentAnalyzer": "AI Document Analyzer",
+    "pasteText": "Paste Document Text",
+    "placeholder": "Enter text to analyze...",
+    "analyzeButton": "Analyze Document",
+    "analyzeError": "Failed to analyze document",
+    "summary": "Executive Summary",
+    "topics": "Compliance Topics",
+    "risks": "Risk Indicators",
+    "suggestedItems": "Suggested Actions",
+    "saveAsDocument": "Save as Document",
+    "saveComplianceItem": "Save Item",
+    "saveSuccess": "Saved successfully",
+    "saveError": "Failed to save"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -23,12 +38,7 @@
     "totalCompliance": "Total Compliance",
     "totalDocuments": "Total Documents",
     "pending": "Pending",
-    "riskLevel": "Risk Level",
-    "suggestedItems": "Suggested Actions",
-    "saveAsDocument": "Save as Document",
-    "saveComplianceItem": "Save Item",
-    "saveSuccess": "Saved successfully",
-    "saveError": "Failed to save"
+    "highRisk": "High Risk"
   },
   "compliance": {
     "title": "Compliance",
@@ -38,7 +48,19 @@
     "delete": "Delete",
     "status": "Status",
     "priority": "Priority",
-    "dueDate": "Due Date"
+    "dueDate": "Due Date",
+    "statuses": {
+      "pending": "Pending",
+      "in_progress": "In Progress",
+      "completed": "Completed",
+      "expired": "Expired"
+    },
+    "risks": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "critical": "Critical"
+    }
   },
   "nav": {
     "home": "Home",
