@@ -114,3 +114,33 @@ export type ApiError = {
   code?: string
   status?: number
 }
+
+/**
+ * Suggested compliance item from AI
+ */
+export type SuggestedComplianceItem = {
+  title: string
+  description: string
+  risk_level: string
+  confidence: number
+}
+
+/**
+ * AI Analysis result
+ */
+export type DocumentAnalysis = {
+  summary: string
+  compliance_topics: string[]
+  risk_indicators: string[]
+  suggested_items: SuggestedComplianceItem[]
+  confidence: number
+}
+
+/**
+ * Risk Assessment result
+ */
+export type RiskAssessment = {
+  score: number
+  level: string
+  confidence: number
+}

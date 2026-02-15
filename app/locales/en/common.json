@@ -5,14 +5,15 @@
   "error": "An error occurred",
   "success": "Success",
   "auth": {
-    "login": "Login",
-    "logout": "Logout",
+    "login": "Login"
+  },
+  "ai": {
+    "analyzing": "Analyzing...",
+    "documentAnalyzer": "AI Document Analyzer",
     "register": "Register",
     "email": "Email",
     "password": "Password",
     "loginButton": "Sign In",
-    "registerButton": "Sign Up",
-    "noAccount": "Don't have an account?",
     "haveAccount": "Already have an account?"
   },
   "dashboard": {
@@ -22,7 +23,12 @@
     "totalCompliance": "Total Compliance",
     "totalDocuments": "Total Documents",
     "pending": "Pending",
-    "highRisk": "High Risk"
+    "riskLevel": "Risk Level",
+    "suggestedItems": "Suggested Actions",
+    "saveAsDocument": "Save as Document",
+    "saveComplianceItem": "Save Item",
+    "saveSuccess": "Saved successfully",
+    "saveError": "Failed to save"
   },
   "compliance": {
     "title": "Compliance",

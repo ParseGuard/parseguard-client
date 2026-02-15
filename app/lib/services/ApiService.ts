@@ -9,6 +9,8 @@ import type {
   ComplianceItem,
   DashboardStats,
   ActivityItem,
+  DocumentAnalysis,
+  RiskAssessment,
 } from '~/types/api';
 
 /**
@@ -248,6 +250,57 @@ class ApiService {
       await apiClient.delete(`/compliance/${id}`);
     } catch (error) {
       throw new Error('Failed to delete compliance item.');
+    }
+  }
+
+  // ============ AI SERVICE ============
+
+  /**
+   * Analyze document text
+   * 
+   * @param text - Text content to analyze
+   * @returns Analysis result
+   */
+  async analyzeDocument(text: string): Promise<DocumentAnalysis> {
+    try {
+      const response = await apiClient.post<DocumentAnalysis>('/ai/analyze', { text });
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to analyze document.');
+    }
+  }
+
+  /**
+   * Assess risk for compliance item
+   * 
+   * @param title - Item title
+   * @param description - Item description
+   * @returns Risk assessment
+   */
+  async assessRisk(title: string, description?: string): Promise<RiskAssessment> {
+    try {
+      const response = await apiClient.post<RiskAssessment>('/ai/assess-risk', { 
+        title, 
+        description 
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error('Failed to assess risk.');
+    }
+  }
+
+  /**
+   * Create document from text content
+   * 
+   * @param title - Document title
+   * @param content - Text content
+   * @returns Created document
+   */
+  async createDocumentFromText(title: string, content: string): Promise<void> {
+    try {
+      await apiClient.post('/documents/text', { title, content });
+    } catch (error) {
+      throw new Error('Failed to save document.');
     }
   }
 }

@@ -7,12 +7,16 @@
   "auth": {
     "login": "تسجيل الدخول",
     "logout": "تسجيل الخروج",
+    "noAccount": "ليس لديك حساب؟",
+    "haveAccount": "لديك حساب بالفعل؟"
+  },
+  "ai": {
+    "analyzing": "جاري التحليل...",
+    "documentAnalyzer": "محلل المستندات الذكي",
     "register": "التسجيل",
     "email": "البريد الإلكتروني",
     "password": "كلمة المرور",
     "loginButton": "دخول",
-    "registerButton": "تسجيل",
-    "noAccount": "ليس لديك حساب؟",
     "haveAccount": "لديك حساب بالفعل؟"
   },
   "dashboard": {
@@ -22,7 +26,13 @@
     "totalCompliance": "إجمالي الامتثال",
     "totalDocuments": "إجمالي المستندات",
     "pending": "قيد الانتظار",
-    "highRisk": "مخاطر عالية"
+    "highRisk": "مخاطر عالية",
+    "riskLevel": "مستوى المخاطرة",
+    "suggestedItems": "إجراءات مقترحة",
+    "saveAsDocument": "حفظ كمستند",
+    "saveComplianceItem": "حفظ العنصر",
+    "saveSuccess": "تم الحفظ بنجاح",
+    "saveError": "فشل الحفظ"
   },
   "compliance": {
     "title": "الامتثال",

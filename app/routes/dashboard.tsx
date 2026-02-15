@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router";
 import { useTranslation } from "react-i18next";
 import { apiService } from "~/lib/services/ApiService";
 import type { DashboardStats, ActivityItem } from "~/types/api";
+import DocumentAnalyzer from "~/components/ai/DocumentAnalyzer";
 
 /**
  * Dashboard loader - Fetch data on server
@@ -113,6 +114,11 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* AI Document Analyzer */}
+      <div className="mb-8">
+        <DocumentAnalyzer />
       </div>
 
       {/* Recent Activity */}
