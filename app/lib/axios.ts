@@ -5,8 +5,8 @@ import type { AxiosInstance, AxiosError } from 'axios';
  * API client configuration
  */
 const API_BASE_URL = typeof window !== 'undefined' 
-  ? (window.ENV?.API_URL || 'http://localhost:8000')
-  : (process.env.VITE_API_URL || 'http://localhost:8000');
+  ? (import.meta.env.VITE_API_URL || 'http://localhost:8000')
+  : 'http://localhost:8000';
 
 /**
  * API error response type
@@ -31,21 +31,21 @@ export const apiClient: AxiosInstance = axios.create({
  * Request interceptor - Add JWT token
  */
 apiClient.interceptors.request.use(
-  (config) => {
+  (config: any) => {
     const token = getToken();
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },
-  (error) => Promise.reject(error)
+  (error: any) => Promise.reject(error)
 );
 
 /**
  * Response interceptor - Handle errors
  */
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response: any) => response,
   (error: AxiosError<ApiErrorResponse>) => {
     if (error.response?.status === 401) {
       clearToken();

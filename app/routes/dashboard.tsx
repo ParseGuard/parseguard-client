@@ -103,7 +103,7 @@ export default function Dashboard({ loaderData }: Route.ComponentProps) {
           </h3>
           <div className="flow-root">
             <ul className="-mb-8">
-              {activity.map((item, idx) => (
+              {activity.map((item: ActivityItem, idx: number) => (
                 <li key={item.id}>
                   <div className="relative pb-8">
                     {idx !== activity.length - 1 && (

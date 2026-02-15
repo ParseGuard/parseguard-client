@@ -31,7 +31,7 @@ export default function Compliance({ loaderData }: Route.ComponentProps) {
 
       <div className="bg-white dark:bg-gray-800 shadow overflow-hidden sm:rounded-md">
         <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-          {items.map((item) => (
+          {items.map((item: ComplianceItem) => (
             <li key={item.id}>
               <div className="px-4 py-4 sm:px-6 hover:bg-gray-50 dark:hover:bg-gray-700">
                 <div className="flex items-center justify-between">
