@@ -1,0 +1,43 @@
+{
+  "appName": "ParseGuard",
+  "welcome": "مرحبا بك في ParseGuard",
+  "loading": "جاري التحميل...",
+  "error": "حدث خطأ",
+  "success": "نجح",
+  "auth": {
+    "login": "تسجيل الدخول",
+    "logout": "تسجيل الخروج",
+    "register": "التسجيل",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "loginButton": "دخول",
+    "registerButton": "تسجيل",
+    "noAccount": "ليس لديك حساب؟",
+    "haveAccount": "لديك حساب بالفعل؟"
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "stats": "الإحصائيات",
+    "activity": "النشاط الأخير",
+    "totalCompliance": "إجمالي الامتثال",
+    "totalDocuments": "إجمالي المستندات",
+    "pending": "قيد الانتظار",
+    "highRisk": "مخاطر عالية"
+  },
+  "compliance": {
+    "title": "الامتثال",
+    "list": "عناصر الامتثال",
+    "create": "إنشاء عنصر",
+    "edit": "تعديل العنصر",
+    "delete": "حذف",
+    "status": "الحالة",
+    "priority": "الأولوية",
+    "dueDate": "تاريخ الاستحقاق"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "dashboard": "لوحة التحكم",
+    "compliance": "الامتثال",
+    "documents": "المستندات"
+  }
+}

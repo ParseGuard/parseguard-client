@@ -1,0 +1,43 @@
+{
+  "appName": "ParseGuard",
+  "welcome": "Welcome to ParseGuard",
+  "loading": "Loading...",
+  "error": "An error occurred",
+  "success": "Success",
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Sign In",
+    "registerButton": "Sign Up",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "stats": "Statistics",
+    "activity": "Recent Activity",
+    "totalCompliance": "Total Compliance",
+    "totalDocuments": "Total Documents",
+    "pending": "Pending",
+    "highRisk": "High Risk"
+  },
+  "compliance": {
+    "title": "Compliance",
+    "list": "Compliance Items",
+    "create": "Create Item",
+    "edit": "Edit Item",
+    "delete": "Delete",
+    "status": "Status",
+    "priority": "Priority",
+    "dueDate": "Due Date"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "compliance": "Compliance",
+    "documents": "Documents"
+  }
+}

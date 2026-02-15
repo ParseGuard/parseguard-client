@@ -6,7 +6,9 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
+import { I18nextProvider } from "react-i18next";
+import { useEffect, useState } from "react";
+import { initI18n } from "~/lib/i18n";
 import type { Route } from "./+types/root";
 import "./app.css";
 
@@ -42,7 +44,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const [i18n, setI18n] = useState<any>(null);
+
+  useEffect(() => {
+    initI18n().then(setI18n);
+  }, []);
+
+  if (!i18n) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <I18nextProvider i18n={i18n}>
+      <Outlet />
+    </I18nextProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
